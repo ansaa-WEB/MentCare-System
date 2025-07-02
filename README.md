@@ -1,13 +1,13 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-
-public class MHSM {
-    public static void main(String[] args) {
-        JFrame f = new JFrame("MHS"); f.setSize(500, 300); f.setDefaultCloseOperation(3);
-        JPanel p = new JPanel(); p.setLayout(null); f.add(p);
-        String[] roles = {"Login", "Register"}; int y = 50;
-        for (String r : roles) { JButton b = new JButton(r); b.setBounds(180, y, 120, 40); y += 60; p.add(b); }
-        f.setLocationRelativeTo(null); f.setVisible(true);
-    }
+import javax.swing.*; import java.io.*;
+public class RegisterForm { 
+  public static void main(String[] a) {
+    String u = JOptionPane.showInputDialog("Enter Username");
+    String p = JOptionPane.showInputDialog("Enter Password");
+    String r = (String) JOptionPane.showInputDialog(null, "Role", "Select Role", 
+      JOptionPane.QUESTION_MESSAGE, null, new String[]{"Patient", "Doctor"}, "Patient");
+    try (BufferedWriter w = new BufferedWriter(new FileWriter(r + ".txt", true))) {
+      w.write(u + "," + p); w.newLine();
+      JOptionPane.showMessageDialog(null, "Registered as " + r);
+    } catch (IOException e) { e.printStackTrace(); }
+  }
 }
