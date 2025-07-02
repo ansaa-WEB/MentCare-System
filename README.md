@@ -1,13 +1,14 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.*;
-
-public class MHSM {
-    public static void main(String[] args) {
-        JFrame f = new JFrame("MHS"); f.setSize(500, 300); f.setDefaultCloseOperation(3);
-        JPanel p = new JPanel(); p.setLayout(null); f.add(p);
-        String[] roles = {"Login", "Register"}; int y = 50;
-        for (String r : roles) { JButton b = new JButton(r); b.setBounds(180, y, 120, 40); y += 60; p.add(b); }
-        f.setLocationRelativeTo(null); f.setVisible(true);
+import javax.swing.*; import java.io.*;
+public class LoginForm {
+  public static void main(String[] a) throws Exception {
+    String u = JOptionPane.showInputDialog("Username");
+    String p = JOptionPane.showInputDialog("Password");
+    String r = (String) JOptionPane.showInputDialog(null, "Role", "Select Role", 
+      JOptionPane.QUESTION_MESSAGE, null, new String[]{"Patient", "Doctor"}, "Patient");
+    try (BufferedReader br = new BufferedReader(new FileReader(r + ".txt"))) {
+      String l; boolean f = false;
+      while ((l = br.readLine()) != null) if (l.equals(u + "," + p)) f = true;
+      JOptionPane.showMessageDialog(null, f ? "Login Success" : "Invalid Credentials");
     }
+  }
 }
